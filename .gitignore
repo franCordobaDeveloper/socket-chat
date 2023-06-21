@@ -1,0 +1,6 @@
+# Ignorar archivos y directorios generados por Node.js
+node_modules/
+package-lock.json
+
+# Ignorar archivos de credenciales
+.env
