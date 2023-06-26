@@ -86,22 +86,22 @@ const dibujarUsuarios = ( usuarios = []) => {
 
 }
 
-const dibujarMensajes = ( mensajes = []) => {
+const dibujarMensajes = ( mensajes = [] ) => {
 
     let mensajesHtml = '';
     mensajes.forEach( ({ mensaje, nombre }) => {
 
-        usersHtml += `
+        mensajesHtml += `
             <li>
                 <p>
-                    <span class="text-primary"> ${ nombre } </span>
-                    <span">${ mensaje }</span>
+                    <span class="text-primary"> ${ nombre }: </span>
+                    <span>${ mensaje }</span>
                 </p>
             </li>
         `;
     });
 
-    ulUsuarios.innerHTML = mensajesHtml;
+    ulMensajes.innerHTML = mensajesHtml;
 
 }
 

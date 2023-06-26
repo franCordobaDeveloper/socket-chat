@@ -19,6 +19,10 @@ const socketController = async ( socket = new Socket(), io ) => {
     chatMensajes.conectarUsuario( usuario );
     io.emit('usuarios-activos', chatMensajes.usuariosArr );
     socket.emit('recibir-mensajes', chatMensajes.ultimos10 );
+
+    // Conectar a una sala especial - Mensajes privados
+    socket.join( usuario.id ); // global, socket.id, usuario.id
+
     // Limpiar cuando alguien se desconecta
     socket.on('disconnect', () => {
         chatMensajes.desconectarUsuario( usuario.id );
@@ -27,6 +31,11 @@ const socketController = async ( socket = new Socket(), io ) => {
 
 
     socket.on('enviar-mensaje', ( { uid, mensaje } ) => {
+
+        if( uid ) {
+            // Mensaje Privado
+            socket.to( uid ).emit('mensaje-privado',{ de: usuario.nombre, mensaje });
+        }
 
         chatMensajes.enviarMensaje( usuario.id, usuario.nombre, mensaje );
         io.emit('recibir-mensajes', chatMensajes.ultimos10 );
